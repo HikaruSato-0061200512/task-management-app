@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.sidebar {
+	width: 90px;
+  	background-color: #c7a5cc;
+  	padding: 20px;
+  	box-sizing: border-box;
+  	height: 100vh;
+  	box-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
+
+.sidebar ul {
+  	list-style: none;
+  	padding: 0;
+  	margin: 0;
+}
+
+.sidebar li {
+  	margin-bottom: 10px;
+}
+
+.sidebar a {
+  	text-decoration: none;
+  	color: #333;
+  	font-weight: bold;
+  	font-size: 10px;
+}
+

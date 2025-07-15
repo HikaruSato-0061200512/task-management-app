@@ -1,0 +1,224 @@
+@charset "UTF-8";
+
+
+body {
+	font-family: sans-serif;
+    background-color: #fef9fb;
+    margin: 0;
+ 
+    }
+    
+.layout {
+  	display: flex;
+}
+
+    
+.layout-block {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+    height: 100vh; /* ← 画面の高さ100%に */
+    padding: 20px;
+    box-sizing: border-box;
+}
+    
+    
+.board {
+    display: flex;
+    gap: 20px;
+    height: 100vh; /* ← 画面の高さ100%に */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.column {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* ← boardの高さに合わせる */
+}
+
+
+.column-header {
+	display: flex;
+	position: relative;
+	justify-content: center;/* h3を中央配置 */
+}
+
+.column h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.btn {
+	position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);/* 中央揃え */
+    padding: 2px 5px;
+	background-color: rgb(232, 235, 240);
+  	text-decoration: none;
+  	border-radius: 4px;
+  	font-size: 0.9em;
+  	border: none;
+  	cursor: pointer;
+  	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.archive-btn {
+	position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);/* 中央揃え */
+	background-color: #007fff;
+	border: none;
+	color: white;
+	border-radius: 4px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.task-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.task {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 0px 8px;
+    margin-bottom: 7px;
+    cursor: pointer;
+    font-size: 0.5em;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    display: flex;
+  	align-items: center; /*垂直方向中央*/
+}
+
+.task-yellow {
+  background-color: #fff3cd; /* 明るい黄色 */
+}
+
+
+.task-red {
+  background-color: #f8d7da; /* 明るい赤 */
+}
+
+.task form {
+	margin-left: auto;
+}
+
+.task-content {
+	margin: 2px;
+}
+
+.title {
+	margin-bottom: 0px;
+}
+
+.deadline {
+	margin-top: 0px;
+	border: none;
+	color: #ff8c19;
+	font-size:8px;
+	font-weight: bold;
+}
+
+
+.button-group {
+	display: flex;
+	gap: 2px;
+	margin-left: auto;
+}
+
+.approve-btn {
+	background-color: #a851ff;
+	color: white;
+	border: none;
+	padding: 2px 5px;
+	border-radius: 3px;
+	font-size: 10px;
+}
+
+
+.reject-btn {
+	background-color: #ff51a8;
+	color: white;
+	border: none;
+	padding: 2px 5px;
+	border-radius: 3px;
+	font-size: 10px;
+}
+
+
+.start-btn {
+	background-color: #c5c5c5;
+	color: white;
+	border: none;
+	padding: 2px 5px;
+	border-radius: 3px;
+	font-size: 10px;
+}
+
+.complete-btn {
+	background-color: #a851ff;
+	color: white;
+	padding: 2px 5px;
+	border: none;
+	border-radius: 3px;
+	font-size: 10px;
+}
+
+
+
+
+
+/*各ステータスのタスクのデザイン(今は使ってない)
+
+.done-task {
+    background-color: #fffff4;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 0.5em;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.doing-task {
+    background-color: #fffff4;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 0.5em;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.next-task {
+    background-color: #fffff4;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 0.5em;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.icebox-task {
+    background-color: #fffff4;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 0.5em;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+*/
+
+

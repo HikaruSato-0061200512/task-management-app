@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+body {
+	font-family: sans-serif;
+    background-color: #fef9fb;
+    margin: 0;
+    }
+    
+.layout {
+  	display: flex;
+}
+
+    
+.layout-block {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+    height: 100vh; /* ← 画面の高さ100%に */
+    padding: 20px;
+    box-sizing: border-box;
+}
+    
+.board {
+	height: 100vh; /* ← 画面の高さ100%に */
+    padding: 50px 400px;
+    box-sizing: border-box;
+}
+    
+.column {
+	flex: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* ← boardの高さに合わせる */
+}
+
+
+.column h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;/* h3を水平中央配置 */
+}
+
+
+.task-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.task {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 0px 8px;
+    margin-bottom: 7px;
+    cursor: pointer;
+    font-size: 0.5em;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    display: flex;
+  	align-items: center; /*垂直方向中央*/
+  	width: 50%;
+}
+

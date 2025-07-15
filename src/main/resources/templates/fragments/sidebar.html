@@ -1,0 +1,12 @@
+	<!-- headerという部品を作る -->
+	
+	<!-- ナビゲーション：リンクを縦に並べる -->
+	<div th:fragment="sidebar" class="sidebar">
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}">ホーム</a></li> <!-- ホームボタンを左側に作りたい -->
+				<li><a th:href="@{/archive}">アーカイブ</a></li>
+				<li><a th:href="@{/logout}">ログアウト</a></li> <!-- 左下にログアウトボタン作りたい -->
+			</ul>
+		</nav>
+	</div>

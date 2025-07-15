@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet" th:href="@{/css/addForm.css}">
+</head>
+<body>
+	<div class="form-wrapper">
+	<form th:action="@{/tasks/add}" method="post" th:object="${task}" class="form">
+		
+		<div class="text">新規タスク</div>
+		
+		 <!-- ステータスを選択肢で表示 -->
+		 <select name="status" th:field="*{status}" class="status">
+			 <option value="Next">Next</option>
+			 <option value="Icebox">Icebox</option>
+			 <option value="Doing">Doing</option>
+			 <option value="Done">Done</option>
+		 </select>
+		 
+		<input type="date" th:field="*{deadline}" class="deadline" />
+		<input type="text" th:field="*{title}" placeholder="タイトル" required class="title"/>
+		<textarea th:field="*{description}" placeholder="説明" class="description"></textarea>
+		<textarea th:field="*{report}" placeholder="報告" class="report"></textarea>
+		<div class="submit">
+			<!-- 戻るボタン -->
+			<a th:href="@{/home}">戻る</a>
+    		<input type="submit" value="登録" />
+		</div>
+
+	</form>
+	</div>
+
+</body>
+</html>

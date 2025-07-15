@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ホーム画面</title>
+
+<!-- 指定したcssをリンクする -->
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" th:href="@{/css/header.css}">
+<link rel="stylesheet" th:href="@{/css/sidebar.css}">
+
+</head>
+
+<!-- HTML -->
+<body>
+	<div class="layout">
+		
+		<!-- サイドバーを挿入 -->
+		<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+		
+		<div class="layout-block">
+			<!-- ヘッダーを挿入 -->
+			<div th:replace="~{fragments/header :: header}"></div>
+		
+			<!-- 本文 -->
+			<div class="board">
+				<!-- Done列 -->
+				<div class="column" id="Done">
+					<div class="column-header">
+						<!-- 承認済みのタスクだけ「アーカイブ」にできるボタンを表示 -->
+						<form th:action="@{/tasks/archive-all}" method="post">
+							<input type="submit" value="Close" onclick="return confirm('1週間のタスクを締めますか？');" class="archive-btn" />
+						</form>
+						
+						<h3>Done</h3>
+						
+						<!-- /tasks/add に画面遷移するとき、URLパラメータ（クエリ）としてテンプレート形式でサーバーに渡す -->
+						<a th:href="@{/tasks/add(status='Done')}" class="btn">＋</a><!-- タスク追加ボタン -->
+					</div>
+					
+					<!-- taskという名称をつけている。task == ${DoneTasks} -->
+					<!-- 「Doneステータスのタスク一覧」を表示する -->
+					<!-- さっきつけた名称　task == ${DoneTasks} の中にあるtitleデータを表示している -->
+					
+					<div th:each="task : ${DoneTasks}">
+						<a th:href="@{/tasks/edit/{taskId}(taskId=${task.taskId})}" class="task-link"><!-- task-link を使って、リンクをラップして全体をクリックできるようする -->
+							
+							<!-- ドラッグ可能であることをブラウザに伝える -->
+							<!-- data-task-id という属性に対して、task.taskId の値を設定 -->
+							<!-- この要素のドラッグが開始された瞬間に、指定されたJavaScriptの関数を呼び出す -->
+							<div class="task"
+								draggable="true"
+								th:attrappend="data-task-id=${task.taskId}">
+								
+								<div class="task-content">
+									<p th:text="${task.title}" class="title">Doneのタイトルを表示</p>
+									<!-- 締切日を表示(deadlinがnullでない時は日付を出力、nullの時はから文字を出力) -->
+									<p th:text="${task.deadline != null ? #temporals.format(task.deadline, 'M/d') : ''}" class="deadline"></p>
+								</div>
+							
+								<div th:if="${(task.status == 'Done'  or task.status == 'Approved') and task.completed}" class="button-group">
+									<form th:action="@{/tasks/approve}" method="post">
+										<input type="hidden" name="taskId" th:value="${task.taskId}" />
+										<input type="submit" th:value="${task.status == 'Approved' ? '解除' : '承認'}" class="approve-btn" />
+									</form>
+									
+								
+									<form th:if="${task.status == 'Done'}" th:action="@{/tasks/reject}" method="post">
+										<input type="hidden" name="taskId" th:value="${task.taskId}" />
+										<input type="submit" value="却下" class="reject-btn" />
+									</form>
+								</div>
+							
+							</div>
+						</a>
+					</div>
+				</div>
+			
+				<!-- Doing列 -->
+				<div class="column" id="Doing">
+					<div class="column-header">
+						<h3>Doing</h3>
+						<!-- /tasks/add に画面遷移するとき、URLパラメータ（クエリ）としてテンプレート形式でサーバーに渡す -->
+						<a th:href="@{/tasks/add(status='Doing')}" class="btn">＋</a><!-- タスク追加ボタン -->
+					</div>
+					
+					<!-- taskという名称をつけている。task == ${nextTasks} -->
+					<!-- 「Doingステータスのタスク一覧」を表示する -->
+					<!-- さっきつけた名称　task == ${nextTasks} の中にあるtitleデータを表示している -->
+					<div th:each="task : ${DoingTasks}">
+					
+						<a th:href="@{/tasks/edit/{taskId}(taskId=${task.taskId})}" class="task-link"><!-- task-link を使って、リンクをラップして全体をクリックできるようする -->
+						
+						<div class="task"
+							th:classappend="${task.daysSinceStarted >= 4 ? 'task-red' : (task.daysSinceStarted >= 2 ? 'task-yellow' : '')}"
+							draggable="true"
+							th:attrappend="data-task-id=${task.taskId}">
+								
+							<div class="task-content">
+								<p th:text="${task.title}" class="title">Doingのタイトルを表示</p>
+								<!-- 締切日を表示(deadlinがnullでない時は日付を出力、nullの時はから文字を出力) -->
+								<p th:text="${task.deadline != null ? #temporals.format(task.deadline, 'M/d') : ''}" class="deadline"></p>
+							</div>
+								
+							<!-- 経過日数を表示 -->
+							<p th:text="'経過日数: ' + ${task.daysSinceStarted} + '日'"></p>
+							
+							<form th:if="${(task.status == 'Doing' or task.status == 'Next' or task.status == 'Icebox') and !task.started}"th:action ="@{/tasks/start}" method="post">
+								<input type="hidden" name="taskId" th:value="${task.taskId}" />
+								<input type="submit" value="開始" class="start-btn" />
+							</form>
+							
+							<form th:if="${task.status == 'Doing' and task.started}" 
+									th:action="@{/tasks/complete}" method="post">
+								<input type="hidden" name="taskId" th:value="${task.taskId}" />
+								<input type="submit" value="完了" class="complete-btn" />
+							</form>
+	
+							
+						</div>
+						</a>
+					
+					</div>
+				</div>
+		
+				<!-- Next列 -->
+				<div class="column" id="Next">
+					<div class="column-header">
+						<h3>Next</h3>
+						<!-- /tasks/add に画面遷移するとき、URLパラメータ（クエリ）としてテンプレート形式でサーバーに渡す -->
+						<a th:href="@{/tasks/add(status='Next')}" class="btn">＋</a> <!-- タスク追加ボタン -->
+					</div>
+					
+					<!-- taskという名称をつけている。task == ${nextTasks} -->
+					<!-- 「Nextステータスのタスク一覧」を表示する -->
+					<!-- さっきつけた名称　task == ${nextTasks} の中にあるtitleデータを表示している -->
+					<div th:each="task : ${NextTasks}">
+						<a th:href="@{/tasks/edit/{taskId}(taskId=${task.taskId})}" class="task-link"><!-- task-link を使って、リンクをラップして全体をクリックできるようする -->
+						
+						<div class="task"
+							th:classappend="${task.daysSinceStarted >= 4 ? 'task-red' : (task.daysSinceStarted >= 2 ? 'task-yellow' : '')}"
+							draggable="true"
+							th:attrappend="data-task-id=${task.taskId}">
+							
+							<div class="task-content">
+								<p th:text="${task.title}" class="title">Nextのタイトルを表示</p>
+								<!-- 締切日を表示(deadlinがnullでない時は日付を出力、nullの時はから文字を出力) -->
+								<p th:text="${task.deadline != null ? #temporals.format(task.deadline, 'M/d') : ''}" class="deadline"></p>
+							</div>
+							
+							<!-- 経過日数を表示 -->
+							<p th:text="'経過日数: ' + ${task.daysSinceStarted} + '日'"></p>
+								
+							<form th:if="${(task.status == 'Doing' or task.status == 'Next' or task.status == 'Icebox') and !task.started and !task.rejected}"　th:action="@{/tasks/start}" method="post">
+								<input type="hidden" name="taskId" th:value="${task.taskId}" />
+								<input type="submit" value="開始" class="start-btn" />
+							</form>
+								
+							<form th:if="${task.status == 'Next' and task.rejected}" th:action="@{/tasks/retry}" method="post">
+								<input type="hidden" name="taskId" th:value="${task.taskId}" />
+								<input type="submit" value="やり直し" class="start-btn" />
+							</form>
+								
+						</div>
+						</a>
+					</div>
+				</div>
+		
+				<!-- Icebox列 -->
+				<div class="column" id="Icebox">
+					<div class="column-header">
+						<h3>Icebox</h3>
+						<!-- /tasks/add に画面遷移するとき、URLパラメータ（クエリ）としてテンプレート形式でサーバーに渡す -->
+						<a th:href="@{/tasks/add(status='Icebox')}" class="btn">＋</a><!-- タスク追加ボタン -->
+					</div>
+					
+					<!-- taskという名称をつけている。task == ${nextTasks} -->
+					<!-- 「Iceboxステータスのタスク一覧」を表示する -->
+					<!-- さっきつけた名称　task == ${nextTasks} の中にあるtitleデータを表示している -->
+					<div th:each="task : ${IceboxTasks}">
+						<a th:href="@{/tasks/edit/{taskId}(taskId=${task.taskId})}" class="task-link"><!-- task-link を使って、リンクをラップして全体をクリックできるようする -->
+							
+							<div class="task"
+								draggable="true"
+								th:attrappend="data-task-id=${task.taskId}">
+								
+								<div class="task-content">
+									<p th:text="${task.title}" class="title">Iceboxのタイトルを表示</p>
+									<!-- 締切日を表示(deadlinがnullでない時は日付を出力、nullの時はから文字を出力) -->
+									<p th:text="${task.deadline != null ? #temporals.format(task.deadline, 'M/d') : ''}" class="deadline"></p>
+								</div>
+								
+								<form th:if="${(task.status == 'Doing' or task.status == 'Next' or task.status == 'Icebox') and !task.started}" th:action="@{/tasks/start}" method="post">
+									<input type="hidden" name="taskId" th:value="${task.taskId}" />
+									<input type="submit" value="開始" class="start-btn" />
+								</form>
+							</div>
+						</a>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	
+	</div>
+	
+	<script th:src="@{/js/drag-drop.js}"></script>
+
+</body>
+</html>

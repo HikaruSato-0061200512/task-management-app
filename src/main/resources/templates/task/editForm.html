@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/editForm.css}">
+</head>
+<body>
+	<div class="form-wrapper">
+		<form th:action="@{/tasks/edit/{taskId}(taskId=${task.taskId})}" method="post" th:object="${task}" class="form">
+			
+			<div class="text">編集タスク</div>
+			
+			<select name="status" th:field="*{status}" required class="status">
+				<option value="Next">Next</option>
+				<option value="Doing">Doing</option>
+				<option value="Done">Done</option>
+				<option value="Icebox">Icebox</option>
+			</select>
+			
+			<input type="date" th:field="*{deadline}" class="deadline" />
+			<input type="text" th:field="*{title}" placeholder="タイトル" required class="title"/>
+			<textarea th:field="*{description}" placeholder="説明" class="description"></textarea>
+			<textarea th:field="*{report}" placeholder="報告" class="report"></textarea>
+			
+			<div class="submit">
+				<div class="submit-left">
+					<!-- 戻るボタン -->
+					<a th:href="@{/home}">戻る</a>
+					<!-- 削除ボタン -->
+					<button type="submit" name="action" value="delete" onclick="return confirm('削除しますか？');">削除</button>
+				</div>
+				<!-- 編集ボタン -->
+				<button type="submit" name="action" value="update">更新</button>
+			</div>
+		</form>
+		
+	</div>
+
+</body>
+</html>

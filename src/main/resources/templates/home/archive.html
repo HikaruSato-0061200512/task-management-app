@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/archive.css}" />
+<link rel="stylesheet" th:href="@{/css/sidebar.css}">
+</head>
+
+<body>
+	<div class="layout">
+		<!-- サイドバーを挿入 -->
+		<div th:replace="~{fragments/sidebar :: sidebar}"></div>
+		
+		<div class="layout-block">
+			<div class="board">
+				<div class="column" id="Archived">
+					<h3>Archive</h3>
+					
+					<div th:each="task : ${ArchivedTasks}">
+						<a th:href="@{/tasks/achive/edit/{taskId}(taskId=${task.taskId})}" class="task-link"><!-- task-link を使って、リンクをラップして全体をクリックできるようする -->
+							<div class="task">
+								<p th:text="${task.title}" class="title">Archivedのタイトル表示</p>
+							</div>
+						</a>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

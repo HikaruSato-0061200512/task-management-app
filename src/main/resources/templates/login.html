@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログイン画面</title>
+
+</head>
+<body>
+	<h3>Login</h3>
+	<!-- Spring Boot の /login にPOSTリクエストを送る -->
+	<form method ="post" th:action ="@{/login}">
+		<!-- <label>は説明 name=はフォームで入力された値をDB側に送る時の「キー(名前)」になる -->
+		<label>ユーザ名： <input type ="text" name ="userName" /></label>
+		<label>パスワード：<input type ="password" name ="password" /></label>
+		<input type ="submit" value ="ログイン" />
+	</form>
+	
+	<p th:if="${errMessage}" th:text="${errMessage}" style="color:red;"></p>
+
+</body>
+</html>
