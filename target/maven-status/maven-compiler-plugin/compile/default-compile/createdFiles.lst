@@ -1,0 +1,11 @@
+com/taskmanager/entity/User.class
+com/taskmanager/controller/LoginController.class
+com/taskmanager/controller/TaskController.class
+com/taskmanager/TaskAppApplication.class
+com/taskmanager/service/TaskService.class
+com/taskmanager/repository/UserRepository.class
+com/taskmanager/repository/TaskRepository.class
+com/taskmanager/form/LoginForm.class
+com/taskmanager/bean/UsersBean.class
+com/taskmanager/service/TaskServiceImpl.class
+com/taskmanager/entity/Task.class
