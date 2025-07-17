@@ -102,8 +102,6 @@
 								<p th:text="${task.deadline != null ? #temporals.format(task.deadline, 'M/d') : ''}" class="deadline"></p>
 							</div>
 								
-							<!-- 経過日数を表示 -->
-							<p th:text="'経過日数: ' + ${task.daysSinceStarted} + '日'"></p>
 							
 							<form th:if="${(task.status == 'Doing' or task.status == 'Next' or task.status == 'Icebox') and !task.started}"th:action ="@{/tasks/start}" method="post">
 								<input type="hidden" name="taskId" th:value="${task.taskId}" />
@@ -148,8 +146,6 @@
 								<p th:text="${task.deadline != null ? #temporals.format(task.deadline, 'M/d') : ''}" class="deadline"></p>
 							</div>
 							
-							<!-- 経過日数を表示 -->
-							<p th:text="'経過日数: ' + ${task.daysSinceStarted} + '日'"></p>
 								
 							<form th:if="${(task.status == 'Doing' or task.status == 'Next' or task.status == 'Icebox') and !task.started and !task.rejected}"　th:action="@{/tasks/start}" method="post">
 								<input type="hidden" name="taskId" th:value="${task.taskId}" />

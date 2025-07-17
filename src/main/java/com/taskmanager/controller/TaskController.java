@@ -377,9 +377,8 @@ public class TaskController {
 			                task.setApproved(false);
 			            }
 			        }
-		        
-		        // DoneからIceboxに移動する場合は状態をリセット
-		        if ("Done".equals(currentStatus) && 
+// NextからIceboxに移動する場合は状態をリセット
+		        if ("Next".equals(currentStatus) && 
 			            ("Icebox".equals(status))) {
 			            
 			            // 開始状態をリセット
@@ -390,6 +389,16 @@ public class TaskController {
 			            // 完了状態もリセット
 			            if (task.getCompleted()) {
 			                task.setCompleted(false);
+			            }
+			            
+			            // やり直し状態もリセット
+			            if (task.getRejected()) {
+			                task.setRejected(false);
+			            }
+			            
+			            // 承認状態もリセット
+			            if (task.getApproved()) {
+			                task.setApproved(false);
 			            }
 			        }
 		        
@@ -413,7 +422,7 @@ public class TaskController {
 			} else {
 				return ResponseEntity.badRequest().body("Task not found");
 			}
-		}//ここ理解してないから理解する。
+		}
 	
 
 }
