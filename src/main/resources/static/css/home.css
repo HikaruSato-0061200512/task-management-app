@@ -1,3 +1,4 @@
+
 @charset "UTF-8";
 
 
@@ -174,7 +175,27 @@ body {
 }
 
 
-
+@media (max-width: 480px) {
+    .column-header {
+        flex-wrap: wrap;       /* ヘッダー要素を折り返し可能に */
+    }
+    
+    .btn, .archive-btn {
+        position: static;      /* 絶対配置を解除 */
+        transform: none;       /* 位置調整をリセット */
+        margin-top: 5px;       /* 上に余白追加 */
+    }
+    
+    .task {
+        flex-direction: column;    /* タスク内要素を縦並びに */
+        align-items: flex-start;   /* 左寄せ */
+    }
+    
+    .task form {
+        margin-left: 0;        /* 左寄せ */
+        margin-top: 5px;       /* 上に余白追加 */
+    }
+}
 
 
 /*各ステータスのタスクのデザイン(今は使ってない)
